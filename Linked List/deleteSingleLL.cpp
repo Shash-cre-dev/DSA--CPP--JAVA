@@ -14,14 +14,16 @@ public:
     }
 
     // destructor
-    ~Node(){
+    ~Node()
+    {
         int value = this->data;
         // memory free
-        if(this->next !=NULL){
+        if (this->next != NULL)
+        {
             delete next;
             this->next = NULL;
         }
-        cout <<"The Memory freed is: "<<value<<endl;
+        cout << "The Memory freed is: " << value << endl;
     }
 };
 
@@ -58,53 +60,59 @@ void insertAtPosition(Node *head, Node *tail, int position, int d)
         cnt++;
     }
 
+    // creating a new node
+    Node *nodeToInsert = new Node(d);
+    nodeToInsert->next = temp->next;
+    temp->next = nodeToInsert;
+
     // insert at end
     if (temp->next == NULL)
     {
         insertAtTail(tail, d);
         return;
     }
-
-    // creating a new node
-    Node *nodeToInsert = new Node(d);
-    nodeToInsert->next = temp->next;
-    temp->next = nodeToInsert;
 }
 
-void deleteNode(Node* &head, Node*&tail, int position){
+void deleteNode(Node *&head, Node *&tail, int position)
+{
     // deleting first node
-    if(position ==1){
-        Node* temp = head;
+    if (position == 1)
+    {
+        Node *temp = head;
         head = head->next;
-        //memory free
+        // memory free
         temp->next = NULL;
         delete temp;
     }
-    else{
+    else
+    {
         // deleting any node
-        Node* curr = head;
-        Node* prev = NULL;
+        Node *curr = head;
+        Node *prev = NULL;
 
         int cnt = 1;
-        while(cnt<position){
+        while (cnt < position)
+        {
             prev = curr;
             curr = curr->next;
             cnt++;
         }
         // If the node to be deleted is the last node
-        if(curr->next == NULL){
+        if (curr->next == NULL)
+        {
             prev->next = NULL;
             tail = prev;
         }
-        else{
+        else
+        {
             prev->next = curr->next;
         }
         // freeing memory
         curr->next = NULL;
         delete curr;
     }
-    
 }
+
 void printLL(Node *&head)
 {
     Node *temp = head;
@@ -131,19 +139,19 @@ int main()
 
     cout << head->data << " " << endl;
     cout << tail->data << " " << endl;
-    deleteNode(head,tail, 4);
+    deleteNode(head, tail, 4);
     printLL(head);
     cout << head->data << endl;
     cout << tail->data << endl;
 
-    deleteNode(head,tail, 5);
+    deleteNode(head, tail, 5);
     printLL(head);
     cout << head->data << endl;
     cout << tail->data << endl;
 
-    deleteNode(head,tail, 4);
+    deleteNode(head, tail, 4);
     printLL(head);
-    cout << head->data<< endl;
-    cout << tail->data<< endl;
+    cout << head->data << endl;
+    cout << tail->data << endl;
     return 0;
 }
