@@ -1,62 +1,75 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
 
-class Stack{
-    public:
-        int size;
-        int *arr;
-        int top;
-    
-    Stack(int size){
-        this->size = size;
-        arr = new int[size];
-        top = -1;
+// Stack class.
+class Stack
+{
+
+public:
+    int size;
+    int *arr;
+    int tos;
+
+    Stack(int capacity)
+    {
+        this->size = capacity;
+        arr = new int[capacity];
+        tos = -1;
     }
 
-    //methods
-    void push(int ele){
-        // checking if empty space present in stack
-        if(size - top > 1){
-            top++;
-            arr[top] = ele;
-        }
-        else{
-            cout<< "Stack Overflow" <<endl;
-        }
-    }
-
-    void pop(){
-        // checking if there are elements in the stack
-        if(top >= 0){
-            top--;
-        }
-        else{
-            cout<<"Stack Underflow"<<endl;
+    void push(int num)
+    {
+        // atleast one space is empty
+        if (size - tos > 1)
+        {
+            tos++;
+            arr[tos] = num;
         }
     }
 
-    int peek(){
-        // checking if there are elements in the stack
-        if(top>=0){
-            return arr[top];
+    int pop()
+    {
+        // atleast one element is present
+        if (tos >= 0)
+        {
+            int ans = arr[tos];
+            tos--;
+            return ans;
         }
-        else{
-            cout<<"Stack is Empty"<< endl;
-            return -1;
-        }
+        return -1;
     }
 
-    bool isEmpty(){
-        if(top == -1){
-            return true;
+    int top()
+    {
+        // atleast one element is present
+        if (tos >= 0)
+        {
+            return arr[tos];
         }
-        else{
-            return false;
+        return -1;
+    }
+
+    int isEmpty()
+    {
+        if (tos == -1)
+        {
+            return 1;
         }
+        return 0;
+    }
+
+    int isFull()
+    {
+        if (tos == size - 1)
+        {
+            return 1;
+        }
+        return 0;
     }
 };
 
-int main(){
+int main()
+{
     Stack st(5);
 
     st.push(22);
@@ -66,13 +79,15 @@ int main(){
     st.push(37);
     st.push(65);
 
-    cout<< st.peek() <<endl;
+    cout << st.peek() << endl;
     st.pop();
 
-    if(st.isEmpty()){
-        cout <<"Stack is Empty";
+    if (st.isEmpty())
+    {
+        cout << "Stack is Empty";
     }
-    else{
-        cout <<"Stack is Not Empty"; 
+    else
+    {
+        cout << "Stack is Not Empty";
     }
 }
