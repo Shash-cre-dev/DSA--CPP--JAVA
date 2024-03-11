@@ -39,7 +39,7 @@ public:
         return -1;
     }
 
-    int top()
+    int peek()
     {
         // atleast one element is present
         if (tos >= 0)
